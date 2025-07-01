@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Office - Temporada 1 - Calificar Episodios</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --warning-gradient: linear-gradient(135deg, #fcb045 0%, #fd1d1d 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --dark-glass: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding-top: 150px;
+            padding-bottom: 40px;
+        }
+
+        /* Header Section */
+        .page-header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: float 20s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .page-header h1 {
+            color: white;
+            font-weight: 700;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .page-header .season-badge {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Episode Cards */
+        .episode-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .episode-image {
+            height: 180px;
+            background: var(--secondary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .episode-image i {
+            font-size: 3.5rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .episode-number-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .episode-content {
+            padding: 25px;
+            color: white;
+        }
+
+        .episode-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .episode-info {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .episode-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .episode-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Rating Section */
+        .rating-section {
+            border-top: 1px solid var(--glass-border);
+            padding: 20px 25px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .current-rating {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .rating-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rating-stars {
+            color: #ffd700;
+            font-size: 1.1rem;
+        }
+
+        .rating-value {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .rating-count {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+        }
+
+        .user-rating {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 5px;
+        }
+
+        .star-btn:hover {
+            color: #ffd700;
+            transform: scale(1.15);
+        }
+
+        .star-btn.active {
+            color: #ffd700;
+        }
+
+        .rate-btn {
+            background: var(--success-gradient);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+
+        .rate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+            color: white;
+        }
+
+        .rate-btn:disabled {
+            background: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Navigation */
+        .navigation-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .navbar-custom {
+            background: var(--primary-gradient);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 2s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            font-size: 1.8rem !important;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            color: #ffffff !important;
+        }
+        
+        
+        .navbar-toggler {
+            border: 2px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-toggler:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.3);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            width: 1.5em;
+            height: 1.5em;
+        }
+        
+        .navbar-collapse {
+            background: rgba(245, 245, 245, 0);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            margin-top: 15px;
+            padding: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn {
+            border: 2px solid var(--glass-border);
+            color: rgb(255, 255, 255) !important;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            margin: 3px;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            color: #000000 !important;
+        }
+        
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+        
+        .nav-btn i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        /* Estilos para el área de usuario autenticado */
+        .user-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 8px 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .user-section:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            border-color: #0caa34;
+            transform: scale(1.1);
+        }
+        
+        .username-text {
+            color: var(--text-light) !important;
+            margin: 0 !important;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .btn-logout {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            border: none;
+            color: white;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-logout:hover {
+            background: linear-gradient(135deg, #ff5252, #ff7979);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        
+        .footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: #3498db;
+            transform: translateY(-2px);
+        }
+        
+        .footer .bi {
+            transition: all 0.3s ease;
+        }
+        
+        .footer .bi:hover {
+            transform: scale(1.2);
+            color: #3498db;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'inicio' %}">
+                <i class="fas fa-tv me-2"></i>
+                Rate the Office
+            </a>
+            
+            <!-- Botón hamburguesa siempre visible -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Menú colapsable -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto d-flex flex-column flex-lg-row align-items-center gap-2">
+                    <!-- Enlaces de navegación -->
+                    <a class="nav-btn" href="{% url 'inicio' %}">
+                        <i class="fas fa-home"></i>
+                        Inicio
+                    </a>
+                    <a class="nav-btn" href="{% url 'estudiantes' %}">
+                        <i class="fas fa-play-circle"></i>
+                        Episodios
+                    </a>
+                    <a class="nav-btn" href="{% url 'editarPerfil' %}">
+                        <i class="fas fa-user-circle"></i>
+                        Perfil
+                    </a>
+                    
+                    {% if not request.user.is_authenticated %}
+                        <a class="nav-btn" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt"></i>
+                            LogIn
+                        </a>
+                    {% endif %}
+                    
+                    <!-- Sección de usuario autenticado -->
+                    {% if request.user.is_authenticated %}
+                        <div class="user-section d-flex flex-column flex-lg-row align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                {% if avatar %}
+                                    <img src="{{ avatar.imagen.url }}"
+                                        alt="Avatar"
+                                        class="user-avatar rounded-circle" />
+                                {% endif %}
+                                <p class="username-text">¡Hola, {{ user.username }}!</p>
+                            </div>
+                            
+                            <form action="{% url 'logout' %}" method="post" class="mb-0">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-logout">
+                                    <i class="fas fa-sign-out-alt me-1"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-tv me-3"></i>The Office</h1>
+            <div class="season-badge">Temporada 1</div>
+            <p>Califica los episodios de la primera temporada de la serie</p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="row">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Episodios</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number">4.2</div>
+                        <div class="stat-label">Rating Promedio</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number">2.1K</div>
+                        <div class="stat-label">Calificaciones</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number">2005</div>
+                        <div class="stat-label">Año</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Episodes Grid -->
+        <div class="row">
+            <!-- Episode 1 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="episode-card">
+                    <div class="episode-image">
+                        <div class="episode-number-badge">1x01</div>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="episode-content">
+                        <h4 class="episode-title">Pilot</h4>
+                        <div class="episode-info">
+                            <span><i class="fas fa-clock"></i> 22 min</span>
+                            <span><i class="fas fa-calendar"></i> 24 Mar 2005</span>
+                        </div>
+                        <p class="episode-description">
+                            Michael Scott, el gerente regional de Dunder Mifflin Scranton, nos presenta su peculiar estilo de liderazgo mientras un equipo de documentalistas filma el día a día en la oficina.
+                        </p>
+                    </div>
+                    <div class="rating-section">
+                        <div class="current-rating">
+                            <div class="rating-display">
+                                <div class="rating-stars">★★★★☆</div>
+                                <span class="rating-value">4.1</span>
+                            </div>
+                            <span class="rating-count">(342 votos)</span>
+                        </div>
+                        <div class="user-rating">
+                            <button class="star-btn" data-rating="1">★</button>
+                            <button class="star-btn" data-rating="2">★</button>
+                            <button class="star-btn" data-rating="3">★</button>
+                            <button class="star-btn" data-rating="4">★</button>
+                            <button class="star-btn" data-rating="5">★</button>
+                        </div>
+                        <button class="rate-btn">
+                            <i class="fas fa-star me-1"></i>
+                            Calificar Episodio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 2 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="episode-card">
+                    <div class="episode-image">
+                        <div class="episode-number-badge">1x02</div>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="episode-content">
+                        <h4 class="episode-title">Diversity Day</h4>
+                        <div class="episode-info">
+                            <span><i class="fas fa-clock"></i> 22 min</span>
+                            <span><i class="fas fa-calendar"></i> 29 Mar 2005</span>
+                        </div>
+                        <p class="episode-description">
+                            Después de un incidente con una imitación de Chris Rock, Michael debe organizar un seminario de diversidad para todos los empleados de la oficina.
+                        </p>
+                    </div>
+                    <div class="rating-section">
+                        <div class="current-rating">
+                            <div class="rating-display">
+                                <div class="rating-stars">★★★★☆</div>
+                                <span class="rating-value">4.3</span>
+                            </div>
+                            <span class="rating-count">(298 votos)</span>
+                        </div>
+                        <div class="user-rating">
+                            <button class="star-btn active" data-rating="1">★</button>
+                            <button class="star-btn active" data-rating="2">★</button>
+                            <button class="star-btn active" data-rating="3">★</button>
+                            <button class="star-btn active" data-rating="4">★</button>
+                            <button class="star-btn" data-rating="5">★</button>
+                        </div>
+                        <button class="rate-btn" disabled>
+                            <i class="fas fa-check me-1"></i>
+                            Calificado (4★)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 3 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="episode-card">
+                    <div class="episode-image">
+                        <div class="episode-number-badge">1x03</div>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="episode-content">
+                        <h4 class="episode-title">Health Care</h4>
+                        <div class="episode-info">
+                            <span><i class="fas fa-clock"></i> 22 min</span>
+                            <span><i class="fas fa-calendar"></i> 5 Abr 2005</span>
+                        </div>
+                        <p class="episode-description">
+                            Michael delega en Dwight la responsabilidad de elegir un nuevo plan de salud para la oficina, mientras él evita dar malas noticias a los empleados.
+                        </p>
+                    </div>
+                    <div class="rating-section">
+                        <div class="current-rating">
+                            <div class="rating-display">
+                                <div class="rating-stars">★★★★☆</div>
+                                <span class="rating-value">4.0</span>
+                            </div>
+                            <span class="rating-count">(267 votos)</span>
+                        </div>
+                        <div class="user-rating">
+                            <button class="star-btn" data-rating="1">★</button>
+                            <button class="star-btn" data-rating="2">★</button>
+                            <button class="star-btn" data-rating="3">★</button>
+                            <button class="star-btn" data-rating="4">★</button>
+                            <button class="star-btn" data-rating="5">★</button>
+                        </div>
+                        <button class="rate-btn">
+                            <i class="fas fa-star me-1"></i>
+                            Calificar Episodio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 4 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="episode-card">
+                    <div class="episode-image">
+                        <div class="episode-number-badge">1x04</div>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="episode-content">
+                        <h4 class="episode-title">The Alliance</h4>
+                        <div class="episode-info">
+                            <span><i class="fas fa-clock"></i> 22 min</span>
+                            <span><i class="fas fa-calendar"></i> 12 Abr 2005</span>
+                        </div>
+                        <p class="episode-description">
+                            Dwight y Jim forman una alianza secreta cuando se rumorea que pueden cerrar la sucursal de Scranton. Michael trata de averiguar quién será despedido.
+                        </p>
+                    </div>
+                    <div class="rating-section">
+                        <div class="current-rating">
+                            <div class="rating-display">
+                                <div class="rating-stars">★★★★☆</div>
+                                <span class="rating-value">4.2</span>
+                            </div>
+                            <span class="rating-count">(289 votos)</span>
+                        </div>
+                        <div class="user-rating">
+                            <button class="star-btn" data-rating="1">★</button>
+                            <button class="star-btn" data-rating="2">★</button>
+                            <button class="star-btn" data-rating="3">★</button>
+                            <button class="star-btn" data-rating="4">★</button>
+                            <button class="star-btn" data-rating="5">★</button>
+                        </div>
+                        <button class="rate-btn">
+                            <i class="fas fa-star me-1"></i>
+                            Calificar Episodio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 5 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="episode-card">
+                    <div class="episode-image">
+                        <div class="episode-number-badge">1x05</div>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="episode-content">
+                        <h4 class="episode-title">Basketball</h4>
+                        <div class="episode-info">
+                            <span><i class="fas fa-clock"></i> 22 min</span>
+                            <span><i class="fas fa-calendar"></i> 19 Abr 2005</span>
+                        </div>
+                        <p class="episode-description">
+                            Michael desafía a los empleados del almacén a un partido de baloncesto. Las tensiones raciales salen a la luz mientras Michael trata de demostrar sus habilidades atléticas.
+                        </p>
+                    </div>
+                    <div class="rating-section">
+                        <div class="current-rating">
+                            <div class="rating-display">
+                                <div class="rating-stars">★★★★☆</div>
+                                <span class="rating-value">4.4</span>
+                            </div>
+                            <span class="rating-count">(312 votos)</span>
+                        </div>
+                        <div class="user-rating">
+                            <button class="star-btn" data-rating="1">★</button>
+                            <button class="star-btn" data-rating="2">★</button>
+                            <button class="star-btn" data-rating="3">★</button>
+                            <button class="star-btn" data-rating="4">★</button>
+                            <button class="star-btn" data-rating="5">★</button>
+                        </div>
+                        <button class="rate-btn">
+                            <i class="fas fa-star me-1"></i>
+                            Calificar Episodio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 6 -->
+            <div class="col-lg-6 col-md-6">
+                <div class="episode-card">
+                    <div class="episode-image">
+                        <div class="episode-number-badge">1x06</div>
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="episode-content">
+                        <h4 class="episode-title">Hot Girl</h4>
+                        <div class="episode-info">
+                            <span><i class="fas fa-clock"></i> 22 min</span>
+                            <span><i class="fas fa-calendar"></i> 26 Abr 2005</span>
+                        </div>
+                        <p class="episode-description">
+                            Una vendedora atractiva visita la oficina y todos los hombres compiten por su atención. Michael y Dwight hacen el ridículo tratando de impresionarla.
+                        </p>
+                    </div>
+                    <div class="rating-section">
+                        <div class="current-rating">
+                            <div class="rating-display">
+                                <div class="rating-stars">★★★★☆</div>
+                                <span class="rating-value">4.1</span>
+                            </div>
+                            <span class="rating-count">(287 votos)</span>
+                        </div>
+                        <div class="user-rating">
+                            <button class="star-btn" data-rating="1">★</button>
+                            <button class="star-btn" data-rating="2">★</button>
+                            <button class="star-btn" data-rating="3">★</button>
+                            <button class="star-btn" data-rating="4">★</button>
+                            <button class="star-btn" data-rating="5">★</button>
+                        </div>
+                        <button class="rate-btn">
+                            <i class="fas fa-star me-1"></i>
+                            Calificar Episodio
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div class="navigation-section mt-4">
+            <button class="nav-btn" disabled>
+                <i class="fas fa-chevron-left me-2"></i>
+                Temporada Anterior
+            </button>
+            <a href="#" class="nav-btn">
+                <i class="fas fa-chevron-right me-2"></i>
+                Temporada 2
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Rating System
+        document.querySelectorAll('.star-btn').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.dataset.rating);
+                const container = this.closest('.user-rating');
+                const stars = container.querySelectorAll('.star-btn');
+                const rateBtn = this.closest('.rating-section').querySelector('.rate-btn');
+                
+                // Remove active class from all stars
+                stars.forEach(s => s.classList.remove('active'));
+                
+                // Add active class to selected stars
+                for(let i = 0; i < rating; i++) {
+                    stars[i].classList.add('active');
+                }
+                
+                // Enable rate button
+                rateBtn.disabled = false;
+                rateBtn.innerHTML = `<i class="fas fa-star me-1"></i>Calificar con ${rating} estrella${rating > 1 ? 's' : ''}`;
+            });
+            
+            star.addEventListener('mouseenter', function() {
+                const rating = parseInt(this.dataset.rating);
+                const container = this.closest('.user-rating');
+                const stars = container.querySelectorAll('.star-btn');
+                
+                stars.forEach((s, index) => {
+                    if(index < rating) {
+                        s.style.color = '#ffd700';
+                    } else {
+                        s.style.color = 'rgba(255, 255, 255, 0.4)';
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseleave', function() {
+                const container = this.closest('.user-rating');
+                const stars = container.querySelectorAll('.star-btn');
+                
+                stars.forEach(s => {
+                    if(s.classList.contains('active')) {
+                        s.style.color = '#ffd700';
+                    } else {
+                        s.style.color = 'rgba(255, 255, 255, 0.4)';
+                    }
+                });
+            });
+        });
+
+        // Rate button functionality
+        document.querySelectorAll('.rate-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!this.disabled) {
+                    const stars = this.closest('.rating-section').querySelectorAll('.star-btn.active');
+                    const rating = stars.length;
+                    
+                    if (rating > 0) {
+                        this.innerHTML = `<i class="fas fa-check me-1"></i>Calificado (${rating}★)`;
+                        this.disabled = true;
+                        
+                        // Simulate updating the overall rating
+                        const currentRatingValue = this.closest('.rating-section').querySelector('.rating-value');
+                        const currentRatingCount = this.closest('.rating-section').querySelector('.rating-count');
+                        
+                        // Simple simulation - in real app this would be handled by backend
+                        setTimeout(() => {
+                            const countText = currentRatingCount.textContent;
+                            const currentCount = parseInt(countText.match(/\d+/)[0]);
+                            currentRatingCount.textContent = `(${currentCount + 1} votos)`;
+                        }, 500);
+                    }
+                }
+            });
+        });
+
+        // Add some visual feedback to cards
+        document.querySelectorAll('.episode-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'rgba(255, 255, 255, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'var(--glass-bg)';
+            });
+        });
+    </script>
+</body>
+</html>
