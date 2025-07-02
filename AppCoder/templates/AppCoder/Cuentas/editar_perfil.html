@@ -1,0 +1,27 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Editar perfil{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Editar perfil</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    </form>
+
+    <a href="{% url 'perfil' %}" class="btn btn-secondary mt-2">Volver al perfil</a>
+</div>
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Acerca de mí{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Acerca de mí</h2>
+
+    <p><strong>Usuario:</strong> {{ user.username }}</p>
+    <p><strong>Nombre completo:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+
+    {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" alt="Avatar" width="150" height="150" class="img-thumbnail mb-3">
+    {% else %}
+        <p>No tienes avatar aún.</p>
+    {% endif %}
+
+    <p>{{ profile.biografia|linebreaksbr|default:"Aquí podés contar quién sos, qué haces, tu trayectoria, etc." }}</p>
+
+    <a href="{% url 'editar-perfil' %}" class="btn btn-primary mt-3">Editar descripción y avatar</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Borrar Post{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>¿Estás segura de que deseas borrar "{{ object.titulo }}"?</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <a href="{% url 'post-list' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-danger">Borrar</button>
+    </form>
+</div>
+{% endblock %}

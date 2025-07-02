@@ -1,0 +1,24 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+    <h2 class="mb-4">Iniciar sesión</h2>
+    <form method="POST" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+        <label for="{{ form.username.id_for_label }}" class="form-label">Usuario</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.password.id_for_label }}" class="form-label">Contraseña</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+    </div>
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+    </form>
+</div>
+{% endblock %}

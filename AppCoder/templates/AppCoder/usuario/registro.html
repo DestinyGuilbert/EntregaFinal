@@ -1,0 +1,39 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+    <h2 class="mb-4 text-center">Registro de Usuario</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            <label for="{{ form.username.id_for_label }}" class="form-label">Usuario</label><br>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label><br>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.password1.id_for_label }}" class="form-label">Contraseña</label><br>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirmar Contraseña</label><br>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Mi Perfil</h2>
+    <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+    <p><strong>Apellido:</strong> {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <p><strong>Biografía:</strong> {{ profile.biografia|default:"No especificada" }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ profile.fecha_nacimiento|date:"d/m/Y" }}</p>
+
+    {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}" width="150" height="150" class="img-thumbnail">
+    {% endif %}
+
+    <a href="{% url 'editar-perfil' %}" class="btn btn-warning mt-3">Editar perfil</a>
+    <a href="{% url 'password_change' %}" class="btn btn-secondary mt-3">Cambiar contraseña</a>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron p-4 bg-light rounded">
+        <h1 class="display-4">¡Bienvenida a App Coder!</h1>
+        <p class="lead">Aquí puedes compartir tus ideas y leer las publicaciones de nuestra comunidad.</p>
+        <hr class="my-4">
+        <p>Explora las publicaciones existentes o crea una nueva para que todos puedan verla.</p>
+        <div class="d-flex gap-3">
+            <a href="{% url 'post-list' %}" class="btn btn-primary btn-lg">Ver Posts</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'post-crear' %}" class="btn btn-success btn-lg">Crear Post</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">Iniciar Sesión para Crear</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

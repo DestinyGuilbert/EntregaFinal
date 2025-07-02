@@ -1,0 +1,76 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% block title %}{{ post.titulo }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ post.titulo }}</h2>
+    <h5 class="text-muted">{{ post.subtitulo }}</h5>
+    <p class="text-muted">Por {{ post.autor.username }}</p>
+    <p class="text-muted">Publicado el {{ post.fecha|date:"d/m/Y H:i" }}</p>
+
+    {% if post.imagen %}
+        <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="img-fluid mb-4">
+    {% endif %}
+
+    <div>
+        {{ post.contenido|safe }}
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if user == post.autor or user.is_staff %}
+            <a href="{% url 'post-editar' post.pk %}" class="btn btn-warning mt-3">Editar</a>
+            <a href="{% url 'post-borrar' post.pk %}" class="btn btn-danger mt-3">Borrar</a>
+        {% endif %}
+    {% endif %}
+
+    <a href="{% url 'post-list' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+
+    <hr>
+
+    <h4>Likes: {{ likes_count }}</h4>
+
+    {% if user.is_authenticated %}
+        {% if user_liked %}
+            <form method="post" action="{% url 'post-unlike' post.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Quitar Like</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'post-like' post.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Dar Like</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>Para dar like debes <a href="{% url 'login' %}">iniciar sesión</a>.</p>
+    {% endif %}
+
+    <hr>
+
+    <h4>Comentarios</h4>
+    <ul class="list-group mb-4">
+        {% for comentario in comentarios %}
+            <li class="list-group-item">
+                <strong>{{ comentario.usuario.username }}</strong> dijo:<br>
+                {{ comentario.contenido }} <br>
+                <small class="text-muted">{{ comentario.fecha|date:"d/m/Y H:i" }}</small>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No hay comentarios aún.</li>
+        {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'comentario-crear' post.pk %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <textarea name="contenido" rows="3" class="form-control" placeholder="Escribe un comentario..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Enviar comentario</button>
+        </form>
+    {% else %}
+        <p>Para comentar debes <a href="{% url 'login' %}">iniciar sesión</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

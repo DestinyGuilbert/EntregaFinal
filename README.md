@@ -1,81 +1,85 @@
-# ProyectoCoder
+# Proyecto Django - Blog Personal
 
-Este es un proyecto desarrollado con [Django](https://www.djangoproject.com/) para la cursada de CoderHouse.
+Este es un proyecto desarrollado con Django para gestión de usuarios y páginas tipo blog.
+
+---
 
 ## Requisitos
 
-- Python 3.11 o superior
-- pip
+- Python 3.11 o superior  
+- pip  
+
+---
 
 ## Instalación
 
-1. **Clonar el repositorio**
+1. Clonar el repositorio  
+git clone <url-del-repo>
+cd Roxanne_Colosia
 
-   ```sh
-   git clone <url-del-repo>
-   cd primeraApp
-   ```
+2. Crear y activar un entorno virtual (opcional pero recomendado)  
+En Linux/Mac: 
+python -m venv .venv
+source .venv/bin/activate  
 
-2. **Crear y activar un entorno virtual (opcional pero recomendado)**
+En Windows:  
+python -m venv .venv
+.venv\Scripts\activate
 
-   ```sh
-   python -m venv .venv
-   source .venv/bin/activate  # En Windows: .venv\Scripts\activate
-   ```
 
-3. **Instalar dependencias**
+3. Instalar dependencias  
+pip install -r requirements.txt
 
-   ```sh
-   pip install -r requirements.txt
-   ```
+
+---
 
 ## Configuración inicial
 
-1. **Aplicar migraciones**
+1. Aplicar migraciones  
+python manage.py migrate
 
-   ```sh
-   python manage.py migrate
-   ```
+2. Crear un superusuario (opcional para acceder al admin)  
+python manage.py createsuperuser
 
-2. **Crear un superusuario (opcional, para acceder al admin)**
 
-   ```sh
-   python manage.py createsuperuser
-   ```
+3. Levantar el servidor de desarrollo  
+python manage.py runserver
 
-3. **Levantar el servidor de desarrollo**
 
-   ```sh
-   python manage.py runserver
-   ```
+4. El proyecto estará disponible en:  
+`http://127.0.0.1:8000/`
 
-   El proyecto estará disponible en [http://127.0.0.1:8000/app/](http://127.0.0.1:8000/app/)
+---
 
 ## Estructura del proyecto
 
-- `AppCoder/`: Aplicación principal con modelos, vistas, formularios y urls.
-- `ProyectoCoder/`: Configuración global del proyecto Django.
-- `templates/`: Plantillas HTML.
-- `static/`: Archivos estáticos (CSS, JS, imágenes).
-- `requirements.txt`: Dependencias del proyecto.
+- `AppCoder/` : Aplicación principal con modelos, vistas, formularios y urls.  
+- `Cuentas/` : Aplicación para manejo de usuarios y autenticación.  
+- `Mensajes/` : Aplicación para mensajería interna entre usuarios.  
+- `templates/` : Plantillas HTML con herencia.  
+- `static/` : Archivos estáticos (CSS, JS, imágenes).  
+- `media/` : Archivos subidos por usuarios (no subir al repositorio).  
+- `requirements.txt` : Dependencias del proyecto.  
+
+---
 
 ## Comandos útiles
 
 - Aplicar migraciones:  
-  `python manage.py migrate`
-- Crear nuevas migraciones:  
-  `python manage.py makemigrations`
+python manage.py migrate
+- Crear migraciones nuevas:  
+python manage.py makemigrations
 - Crear superusuario:  
-  `python manage.py createsuperuser`
-- Levantar el servidor:  
-  `python manage.py runserver`
+python manage.py createsuperuser
+- Levantar servidor:  
+python manage.py runserver
+- Crear nueva app:  
+python manage.py startapp nombre_app
+
+---
 
 ## Notas
 
-- Para agregar nuevas apps, usar:  
-  `python manage.py startapp nombre_app`
-- Para acceder al panel de administración:  
-  [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
-
----
-CoderHouse · Django · Python
+- No subir la base de datos (`db.sqlite3`) ni la carpeta `media/` al repositorio.  
+- Usar el archivo `.gitignore` para excluirlos.  
+- Formularios que manejan imágenes deben usar `enctype="multipart/form-data"`.  
