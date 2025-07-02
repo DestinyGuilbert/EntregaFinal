@@ -10913,6 +10913,498 @@ header.masthead h1, header.masthead .h1 {
   opacity: 0.5;
 }
 
+/* ===== RATE THE OFFICE - ESTILOS MORADOS ===== */
+
+/* Variables de colores morados y lilas */
+:root {
+    --purple-primary: #8b5cf6;
+    --purple-secondary: #a855f7;
+    --lilac-light: #ddd6fe;
+    --lilac-lighter: #f3f4f6;
+    --purple-dark: #6b46c1;
+    --gradient-purple: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+    --gradient-card: linear-gradient(145deg, rgba(139, 92, 246, 0.05) 0%, rgba(168, 85, 247, 0.15) 100%);
+}
+
+/* Fondo del body */
+body {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(221, 214, 254, 0.1) 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor principal mejorado */
+.jumbotron {
+    background: var(--gradient-card) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
+    border-radius: 20px !important;
+    box-shadow: 
+        0 20px 40px rgba(139, 92, 246, 0.1),
+        0 8px 16px rgba(168, 85, 247, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.jumbotron::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-purple);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.jumbotron:hover::before {
+    opacity: 1;
+}
+
+.jumbotron:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 30px 60px rgba(139, 92, 246, 0.15),
+        0 12px 24px rgba(168, 85, 247, 0.1);
+}
+
+/* Título principal con gradiente */
+.display-4 {
+    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(139, 92, 246, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Texto principal */
+.lead {
+    color: var(--purple-dark);
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+}
+
+/* Párrafo de descripción */
+.jumbotron p:not(.lead) {
+    color: #6b7280;
+    position: relative;
+    z-index: 2;
+}
+
+/* Divisor mejorado */
+.my-4 {
+    border: none !important;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--purple-primary) 50%, transparent 100%);
+    margin: 2rem 0;
+    opacity: 0.6;
+}
+
+/* Botón principal morado */
+.btn-primary {
+    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-secondary) 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+    color: white !important;
+}
+
+/* Botón secundario (éxito) */
+.btn-success {
+    background: rgba(221, 214, 254, 0.8) !important;
+    border: 2px solid var(--purple-primary) !important;
+    color: var(--purple-dark) !important;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-success:hover {
+    background: var(--lilac-light) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+    color: var(--purple-dark) !important;
+}
+
+/* Botón de inicio de sesión */
+.btn-secondary {
+    border: 2px solid var(--purple-primary) !important;
+    color: var(--purple-primary) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-secondary:hover {
+    background: var(--purple-primary) !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Efectos de iconos */
+.icon-wrapper {
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover .icon-wrapper {
+    transform: scale(1.1);
+}
+
+/* Formas flotantes decorativas */
+.jumbotron .floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.jumbotron .shape {
+    position: absolute;
+    background: var(--purple-primary);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.jumbotron .shape:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    top: 10%;
+    left: 10%;
+    animation-delay: -2s;
+}
+
+.jumbotron .shape:nth-child(2) {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    right: 15%;
+    animation-delay: -4s;
+}
+
+.jumbotron .shape:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: -1s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .d-flex.gap-3 {
+        flex-direction: column;
+        gap: 1rem !important;
+    }
+    
+    .d-flex.gap-3 .btn {
+        width: 100%;
+    }
+}
+
+.card-purple {
+    background: var(--gradient-card);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.text-purple {
+    color: var(--purple-primary);
+}
+
+.bg-purple-light {
+    background: var(--lilac-light);
+}
+
+/* Variables de colores personalizados */
+:root {
+    --primary-purple: #6f42c1;
+    --light-purple: #8e5ec8;
+    --lilac: #c4a7e7;
+    --light-lilac: #e6d9f5;
+    --dark-purple: #5a2d91;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos generales */
+body {
+    background: linear-gradient(135deg, var(--primary-purple), var(--lilac));
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Navegación personalizada */
+.navbar {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 32px rgba(111, 66, 193, 0.15);
+    padding: 1rem 0;
+}
+
+/* Reorganización de la navegación - todo a la derecha excepto el logo */
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: absolute;
+}
+
+.navbar-brand:hover {
+    color: var(--light-lilac) !important;
+    transform: translateX(-50%) scale(1.05);
+}
+
+.navbar .d-flex {
+    margin-left: auto;
+    gap: 0.5rem;
+}
+
+.dropdown {
+    display: none !important;
+}
+
+.glass-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    box-shadow: 0 4px 15px var(--glass-shadow);
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(111, 66, 193, 0.3);
+}
+
+.navbar .btn,
+.navbar a[class*="btn"] {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    color: white !important;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 4px 15px var(--glass-shadow);
+}
+
+.navbar .btn:hover,
+.navbar a[class*="btn"]:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(111, 66, 193, 0.3);
+}
+
+
+.navbar a:not([class*="btn"]) {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid transparent;
+}
+
+.navbar a:not([class*="btn"]):hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--glass-border);
+    transform: translateY(-1px);
+}
+
+/* Contenido principal */
+main {
+    background: rgba(255, 255, 255, 0.95);
+    margin: 2rem auto;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(111, 66, 193, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 60vh;
+    max-width: 95%;
+    padding: 2rem;
+}
+
+/* Footer personalizado */
+.footer {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    margin-top: 3rem;
+}
+
+.footer a {
+    color: var(--light-lilac);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: white;
+    transform: translateY(-1px);
+}
+
+.footer .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Iconos de redes sociales */
+.footer .bi {
+    color: var(--light-lilac);
+    transition: all 0.3s ease;
+}
+
+.footer .bi:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar-brand {
+        position: static;
+        transform: none;
+        margin: 0 auto;
+    }
+    
+    .navbar .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .navbar .d-flex {
+        margin-left: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    main {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+
+/* Efectos adicionales para mejorar la experiencia */
+.glass-btn,
+.navbar .btn,
+.navbar a {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-btn::before,
+.navbar .btn::before,
+.navbar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.glass-btn:hover::before,
+.navbar .btn:hover::before,
+.navbar a:hover::before {
+    left: 100%;
+}
+
+* {
+    transition: all 0.3s ease;
+}
+
+.navbar .fas,
+.navbar .bi {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
 footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;

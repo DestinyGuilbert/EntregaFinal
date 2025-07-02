@@ -1,106 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        {% load static %}
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>{% block title %} App Coder 2.0 {% endblock %}</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="{% static 'AppCoder/assets/favicon.ico' %}" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'AppCoder/css/styles.css' %}" rel="stylesheet" />
-    </head>
-    <body>
-        <!-- Navigation-->
-         <nav class="navbar navbar-light bg-light static-top">
-          <div class="container d-flex justify-content-between align-items-center">
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Rate the Office - Califica y comenta episodios de The Office" />
+    <meta name="author" content="Rate the Office" />
+    <title>{% block title %}Rate the Office - App Coder 2.0{% endblock %}</title>
+    
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'AppCoder/assets/favicon.ico' %}" />
+    
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Font Awesome para iconos adicionales -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+    
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'AppCoder/css/styles.css' %}" rel="stylesheet" />
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation-->
+   <!-- Navigation actualizada -->
+<nav class="navbar navbar-expand-lg navbar-light static-top">
+    <div class="container">
         
-            <!-- Menú desplegable a la izquierda -->
-            <div class="dropdown">
-              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Navegar
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'inicio' %}">Inicio</a></li>
-                <li><a class="dropdown-item" href="{% url 'about' %}">About</a></li>
-                <li><a class="dropdown-item" href="{% url 'post-list' %}">Pages</a></li>
-              </ul>
-            </div>
+        <!-- Nombre del sitio centrado -->
+        <a class="navbar-brand" href="{% url 'inicio' %}">
+            <i class="fas fa-star me-2"></i>Rate the Office
+        </a>
         
-            <!-- Nombre del sitio -->
-            <a class="navbar-brand mx-auto" href="{% url 'inicio' %}">App Coder</a>
-        
+        <!-- Todos los botones/enlaces a la derecha -->
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <!-- Enlaces de navegación -->
+            <a class="glass-btn" href="{% url 'inicio' %}">
+                <i class="fas fa-home me-2"></i>Inicio
+            </a>
+            <a class="glass-btn" href="{% url 'about' %}">
+                <i class="fas fa-info-circle me-2"></i>About
+            </a>
+            <a class="glass-btn" href="{% url 'post-list' %}">
+                <i class="fas fa-list me-2"></i>Posts
+            </a>
+            
+            <!-- Separador visual -->
+            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.3); margin: 0 0.5rem;"></div>
+            
             <!-- Login / Logout y Perfil -->
-            <div>
-              {% if user.is_authenticated %}
-                <li class="nav-item">
-                  <a class="btn btn-outline-info mx-1" href="{% url 'perfil' %}">Mi Perfil</a>
-                  <a class="btn btn-outline-danger mx-1" href="{% url 'logout' %}">Logout</a>
-                  <a href="{% url 'enviar_mensaje' %}">Enviar mensaje</a>
-                  <a href="{% url 'bandeja_entrada' %}">Bandeja</a>
-                </li>
-              {% else %}
-                <a class="btn btn-outline-primary mx-1" href="{% url 'login' %}">Login</a>
-                <a class="btn btn-outline-primary mx-1" href="{% url 'register' %}">Registro</a>
-              {% endif %}
-            </div>
-        
-          </div>
-        </nav>
-        <main>
-            {% block content %}
-            <!-- El contenido de la pagina debe ir aqui-->
-            {% endblock content %}
+            {% if user.is_authenticated %}
+                <a class="glass-btn" href="{% url 'perfil' %}">
+                    <i class="fas fa-user me-1"></i>Mi Perfil
+                </a>
+                <a class="glass-btn" href="{% url 'enviar_mensaje' %}" title="Enviar mensaje">
+                    <i class="fas fa-envelope me-1"></i>Mensaje
+                </a>
+                <a class="glass-btn" href="{% url 'bandeja_entrada' %}" title="Bandeja de entrada">
+                    <i class="fas fa-inbox me-1"></i>Bandeja
+                </a>
+                <a class="glass-btn btn-logout" href="{% url 'logout' %}">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
+            {% else %}
+                <a class="glass-btn" href="{% url 'login' %}">
+                    <i class="fas fa-sign-in-alt me-1"></i>Login
+                </a>
+                <a class="glass-btn" href="{% url 'register' %}">
+                    <i class="fas fa-user-plus me-1"></i>Registro
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
 
-        </main>
-        
-        <!-- Footer-->
-        <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+    <!-- Contenido principal -->
+    <main>
+        {% block content %}
+        <!-- El contenido de la página debe ir aquí -->
+        {% endblock content %}
+    </main>
+    
+    <!-- Footer-->
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                            <a href="{% url 'about' %}">
+                                <i class="fas fa-info-circle me-1"></i>About
+                            </a>
+                        </li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <i class="fas fa-envelope me-1"></i>Contact
+                            </a>
+                        </li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <i class="fas fa-file-contract me-1"></i>Terms of Use
+                            </a>
+                        </li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <i class="fas fa-shield-alt me-1"></i>Privacy Policy
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">
+                        &copy; Rate the Office 2024. All Rights Reserved.
+                    </p>
+                </div>
+                <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item me-4">
+                            <a href="#!" title="Facebook">
+                                <i class="bi-facebook fs-3"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item me-4">
+                            <a href="#!" title="Twitter">
+                                <i class="bi-twitter fs-3"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!" title="Instagram">
+                                <i class="bi-instagram fs-3"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="{% static 'AppCoder/js/scripts.js' %}"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-    </body>
+        </div>
+    </footer>
     
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Core theme JS-->
+    <script src="{% static 'AppCoder/js/scripts.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
 </html>
