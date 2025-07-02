@@ -10913,9 +10913,6 @@ header.masthead h1, header.masthead .h1 {
   opacity: 0.5;
 }
 
-/* ===== RATE THE OFFICE - ESTILOS MORADOS ===== */
-
-/* Variables de colores morados y lilas */
 :root {
     --purple-primary: #8b5cf6;
     --purple-secondary: #a855f7;
@@ -10926,14 +10923,12 @@ header.masthead h1, header.masthead .h1 {
     --gradient-card: linear-gradient(145deg, rgba(139, 92, 246, 0.05) 0%, rgba(168, 85, 247, 0.15) 100%);
 }
 
-/* Fondo del body */
 body {
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(168, 85, 247, 0.12) 50%, rgba(221, 214, 254, 0.1) 100%);
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Contenedor principal mejorado */
 .jumbotron {
     background: var(--gradient-card) !important;
     backdrop-filter: blur(10px);
@@ -10984,22 +10979,19 @@ body {
     z-index: 2;
 }
 
-/* Texto principal */
 .lead {
     color: var(--purple-dark);
-    font-weight: 500;
+    font-weight: 900;
     position: relative;
     z-index: 2;
 }
 
-/* Párrafo de descripción */
 .jumbotron p:not(.lead) {
     color: #6b7280;
     position: relative;
     z-index: 2;
 }
 
-/* Divisor mejorado */
 .my-4 {
     border: none !important;
     height: 2px;
@@ -11062,7 +11054,6 @@ body {
     color: var(--purple-dark) !important;
 }
 
-/* Botón de inicio de sesión */
 .btn-secondary {
     border: 2px solid var(--purple-primary) !important;
     color: var(--purple-primary) !important;
@@ -11092,7 +11083,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Formas flotantes decorativas */
 .jumbotron .floating-shapes {
     position: absolute;
     top: 0;
@@ -11145,22 +11135,6 @@ body {
     }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .display-4 {
-        font-size: 2rem;
-    }
-    
-    .d-flex.gap-3 {
-        flex-direction: column;
-        gap: 1rem !important;
-    }
-    
-    .d-flex.gap-3 .btn {
-        width: 100%;
-    }
-}
-
 .card-purple {
     background: var(--gradient-card);
     border: 1px solid rgba(139, 92, 246, 0.2);
@@ -11176,7 +11150,6 @@ body {
     background: var(--lilac-light);
 }
 
-/* Variables de colores personalizados */
 :root {
     --primary-purple: #6f42c1;
     --light-purple: #8e5ec8;
@@ -11188,14 +11161,12 @@ body {
     --glass-shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos generales */
 body {
     background: linear-gradient(135deg, var(--primary-purple), var(--lilac));
     min-height: 100vh;
     font-family: 'Lato', sans-serif;
 }
 
-/* Navegación personalizada */
 .navbar {
     background: rgba(255, 255, 255, 0.15) !important;
     backdrop-filter: blur(10px);
@@ -11204,7 +11175,6 @@ body {
     padding: 1rem 0;
 }
 
-/* Reorganización de la navegación - todo a la derecha excepto el logo */
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -11218,6 +11188,7 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     position: absolute;
+    transform: translateX(-50%);
 }
 
 .navbar-brand:hover {
@@ -11278,7 +11249,6 @@ body {
     box-shadow: 0 6px 20px rgba(111, 66, 193, 0.3);
 }
 
-
 .navbar a:not([class*="btn"]) {
     color: white;
     text-decoration: none;
@@ -11293,10 +11263,8 @@ body {
 .navbar a:not([class*="btn"]):hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: var(--glass-border);
-    transform: translateY(-1px);
 }
 
-/* Contenido principal */
 main {
     background: rgba(255, 255, 255, 0.95);
     margin: 2rem auto;
@@ -11309,7 +11277,6 @@ main {
     padding: 2rem;
 }
 
-/* Footer personalizado */
 .footer {
     background: rgba(255, 255, 255, 0.1) !important;
     backdrop-filter: blur(10px);
@@ -11333,7 +11300,6 @@ main {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Iconos de redes sociales */
 .footer .bi {
     color: var(--light-lilac);
     transition: all 0.3s ease;
@@ -11344,32 +11310,6 @@ main {
     transform: scale(1.1);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .navbar-brand {
-        position: static;
-        transform: none;
-        margin: 0 auto;
-    }
-    
-    .navbar .container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .navbar .d-flex {
-        margin-left: 0;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    
-    main {
-        margin: 1rem;
-        padding: 1rem;
-    }
-}
-
-/* Efectos adicionales para mejorar la experiencia */
 .glass-btn,
 .navbar .btn,
 .navbar a {
