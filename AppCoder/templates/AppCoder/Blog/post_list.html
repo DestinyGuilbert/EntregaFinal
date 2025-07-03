@@ -10,58 +10,31 @@
             <div class="card shadow-lg border-0" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); border-radius: 20px;">
                 <div class="card-body py-4">
                     <h2 class="mb-0 text-white fw-bold" style="font-size: 2.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-                        <i class=></i>Historial
+                        <i class=></i>Post mas recientes
                     </h2>
                 </div>
+                
             </div>
-        </div>
 
-        <!-- Formulario de búsqueda -->
-        <div class="search-section mb-5">
-            <div class="card shadow-lg border-0" style="background-color: #fdfbff; border-radius: 20px;">
-                <div class="card-body p-4">
-                    <form method="get" class="d-flex gap-3 align-items-center">
-                        <div class="search-input-container flex-grow-1 position-relative">
-                            <i class="fas fa-search position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%); color: #9b59b6; z-index: 10;"></i>
-                            <input type="text" name="q" class="form-control search-input" 
-                                   placeholder="Buscar por título o subtítulo..." 
-                                   value="{{ request.GET.q }}"
-                                   style="padding-left: 45px; 
-                                          border: 2px solid #e6d9f0; 
-                                          border-radius: 50px; 
-                                          font-size: 1.1rem; 
-                                          padding: 12px 20px 12px 45px;
-                                          background-color: #ffffff;
-                                          transition: all 0.3s ease;">
-                        </div>
-                        <button class="btn search-btn shadow-sm" type="submit"
-                                style="background: linear-gradient(45deg, #9b59b6, #8e44ad); 
-                                       color: white; 
-                                       border: none; 
-                                       border-radius: 50px; 
-                                       padding: 12px 25px;
-                                       font-weight: 600;
-                                       transition: all 0.3s ease;">
-                            <i class="fas fa-search me-2"></i>Buscar
-                        </button>
-                        
-                        {% if request.GET.q %}
-                            <a href="{% url 'post-list' %}" class="btn clear-btn shadow-sm"
-                               style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); 
-                                      color: white; 
-                                      border: none; 
-                                      border-radius: 50px; 
-                                      padding: 12px 25px;
-                                      font-weight: 600;
-                                      text-decoration: none;
-                                      transition: all 0.3s ease;">
-                                <i class="fas fa-times me-2"></i>Limpiar
-                            </a>
-                        {% endif %}
-                    </form>
-                </div>
+            {% if user.is_authenticated or user.is_staff %}
+            <div class="text-center mt-5">
+                <a href="{% url 'post-crear' %}" class="btn create-post-btn shadow-lg"
+                   style="background: linear-gradient(45deg, #27ae60, #2ecc71); 
+                          color: white; 
+                          border: none; 
+                          border-radius: 50px; 
+                          padding: 15px 35px;
+                          font-weight: 700;
+                          font-size: 1.2rem;
+                          text-decoration: none;
+                          transition: all 0.3s ease;
+                          display: inline-block;
+                          box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);">
+                    <i class="fas fa-plus-circle me-2"></i>Crear Nuevo Post
+                </a>
             </div>
-        </div>
+        {% endif %}
+        </div>      
 
         {% if posts %}
             <div class="posts-grid">
@@ -141,24 +114,7 @@
         {% endif %}
 
         <!-- Botón para crear nuevo post -->
-        {% if user.is_authenticated or user.is_staff %}
-            <div class="text-center mt-5">
-                <a href="{% url 'post-crear' %}" class="btn create-post-btn shadow-lg"
-                   style="background: linear-gradient(45deg, #27ae60, #2ecc71); 
-                          color: white; 
-                          border: none; 
-                          border-radius: 50px; 
-                          padding: 15px 35px;
-                          font-weight: 700;
-                          font-size: 1.2rem;
-                          text-decoration: none;
-                          transition: all 0.3s ease;
-                          display: inline-block;
-                          box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);">
-                    <i class="fas fa-plus-circle me-2"></i>Crear Nuevo Post
-                </a>
-            </div>
-        {% endif %}
+        
     </div>
 </div>
 
